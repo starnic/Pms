@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xian.pms.dao.MaintainMapper">
+  <resultMap id="BaseResultMap" type="com.xian.pms.bean.Maintain">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="thing" jdbcType="VARCHAR" property="thing" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="homesbumber" jdbcType="VARCHAR" property="homesbumber" />
+    <result column="sdate" jdbcType="DATE" property="sdate" />
+    <result column="rdate" jdbcType="DATE" property="rdate" />
+    <result column="tcost" jdbcType="INTEGER" property="tcost" />
+    <result column="scost" jdbcType="INTEGER" property="scost" />
+    <result column="maintainer" jdbcType="VARCHAR" property="maintainer" />
+    <result column="smemo" jdbcType="VARCHAR" property="smemo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, thing, status, homesbumber, sdate, rdate, tcost, scost, maintainer, smemo
+  </sql>
+  <select id="selectByExample" parameterType="com.xian.pms.bean.MaintainExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from maintain
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from maintain
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from maintain
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xian.pms.bean.MaintainExample">
+    delete from maintain
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xian.pms.bean.Maintain">
+    insert into maintain (id, thing, status, 
+      homesbumber, sdate, rdate, 
+      tcost, scost, maintainer, 
+      smemo)
+    values (#{id,jdbcType=INTEGER}, #{thing,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{homesbumber,jdbcType=VARCHAR}, #{sdate,jdbcType=DATE}, #{rdate,jdbcType=DATE}, 
+      #{tcost,jdbcType=INTEGER}, #{scost,jdbcType=INTEGER}, #{maintainer,jdbcType=VARCHAR}, 
+      #{smemo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xian.pms.bean.Maintain">
+    insert into maintain
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="thing != null">
+        thing,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="homesbumber != null">
+        homesbumber,
+      </if>
+      <if test="sdate != null">
+        sdate,
+      </if>
+      <if test="rdate != null">
+        rdate,
+      </if>
+      <if test="tcost != null">
+        tcost,
+      </if>
+      <if test="scost != null">
+        scost,
+      </if>
+      <if test="maintainer != null">
+        maintainer,
+      </if>
+      <if test="smemo != null">
+        smemo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="thing != null">
+        #{thing,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="homesbumber != null">
+        #{homesbumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sdate != null">
+        #{sdate,jdbcType=DATE},
+      </if>
+      <if test="rdate != null">
+        #{rdate,jdbcType=DATE},
+      </if>
+      <if test="tcost != null">
+        #{tcost,jdbcType=INTEGER},
+      </if>
+      <if test="scost != null">
+        #{scost,jdbcType=INTEGER},
+      </if>
+      <if test="maintainer != null">
+        #{maintainer,jdbcType=VARCHAR},
+      </if>
+      <if test="smemo != null">
+        #{smemo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xian.pms.bean.MaintainExample" resultType="java.lang.Long">
+    select count(*) from maintain
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update maintain
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.thing != null">
+        thing = #{record.thing,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homesbumber != null">
+        homesbumber = #{record.homesbumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sdate != null">
+        sdate = #{record.sdate,jdbcType=DATE},
+      </if>
+      <if test="record.rdate != null">
+        rdate = #{record.rdate,jdbcType=DATE},
+      </if>
+      <if test="record.tcost != null">
+        tcost = #{record.tcost,jdbcType=INTEGER},
+      </if>
+      <if test="record.scost != null">
+        scost = #{record.scost,jdbcType=INTEGER},
+      </if>
+      <if test="record.maintainer != null">
+        maintainer = #{record.maintainer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smemo != null">
+        smemo = #{record.smemo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update maintain
+    set id = #{record.id,jdbcType=INTEGER},
+      thing = #{record.thing,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      homesbumber = #{record.homesbumber,jdbcType=VARCHAR},
+      sdate = #{record.sdate,jdbcType=DATE},
+      rdate = #{record.rdate,jdbcType=DATE},
+      tcost = #{record.tcost,jdbcType=INTEGER},
+      scost = #{record.scost,jdbcType=INTEGER},
+      maintainer = #{record.maintainer,jdbcType=VARCHAR},
+      smemo = #{record.smemo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xian.pms.bean.Maintain">
+    update maintain
+    <set>
+      <if test="thing != null">
+        thing = #{thing,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="homesbumber != null">
+        homesbumber = #{homesbumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sdate != null">
+        sdate = #{sdate,jdbcType=DATE},
+      </if>
+      <if test="rdate != null">
+        rdate = #{rdate,jdbcType=DATE},
+      </if>
+      <if test="tcost != null">
+        tcost = #{tcost,jdbcType=INTEGER},
+      </if>
+      <if test="scost != null">
+        scost = #{scost,jdbcType=INTEGER},
+      </if>
+      <if test="maintainer != null">
+        maintainer = #{maintainer,jdbcType=VARCHAR},
+      </if>
+      <if test="smemo != null">
+        smemo = #{smemo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xian.pms.bean.Maintain">
+    update maintain
+    set thing = #{thing,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      homesbumber = #{homesbumber,jdbcType=VARCHAR},
+      sdate = #{sdate,jdbcType=DATE},
+      rdate = #{rdate,jdbcType=DATE},
+      tcost = #{tcost,jdbcType=INTEGER},
+      scost = #{scost,jdbcType=INTEGER},
+      maintainer = #{maintainer,jdbcType=VARCHAR},
+      smemo = #{smemo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
